@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="xyz.lailin.atool.MainActivity">
+
+    <TextView
+        android:text="z: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:id="@+id/labelZ"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/valueZ" />
+
+    <TextView
+        android:text="x:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lableX"
+        android:textSize="18sp"
+        android:layout_alignBottom="@+id/valueX"
+        android:layout_alignStart="@+id/lableY"
+        android:layout_alignEnd="@+id/labelZ" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lableY"
+        android:textSize="18sp"
+        android:text="y: "
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/valueZ"
+        android:layout_alignStart="@+id/labelZ" />
+
+    <TextView
+        android:layout_width="50sp"
+        android:layout_height="22sp"
+        android:layout_marginBottom="13dp"
+        android:id="@+id/valueX"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:layout_above="@+id/valueY"
+        android:layout_alignStart="@+id/valueZ" />
+
+    <TextView
+        android:layout_width="50sp"
+        android:layout_height="22sp"
+        android:id="@+id/valueZ"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/valueY" />
+
+    <TextView
+        android:layout_width="50sp"
+        android:layout_height="22sp"
+        android:id="@+id/valueY"
+        android:textSize="18sp"
+
+        android:layout_marginEnd="75dp"
+        android:layout_alignBottom="@+id/lableY"
+        android:layout_alignParentEnd="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchX"
+        android:layout_alignTop="@+id/lableX"
+        android:layout_alignStart="@+id/switchY"
+        android:layout_alignBottom="@+id/valueX"
+        android:checked="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/switchY"
+        android:id="@+id/switchZ"
+        android:layout_alignTop="@+id/labelZ"
+        android:layout_alignParentBottom="true"
+        android:checked="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchY"
+        android:layout_marginEnd="11dp"
+        android:layout_alignBottom="@+id/valueY"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/lableY"
+        android:checked="true" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="249sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:numStars="5"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:rating="5"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="17dp"
+        android:layout_above="@+id/valueX"
+        android:layout_alignParentEnd="true"
+        android:isIndicator="false" />
+
+    <TextView
+        android:text="舒适度:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/ratingBar"
+        android:layout_alignStart="@+id/lableX" />
+
+    <Switch
+        android:text="数据保存"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/isSave"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+    <Switch
+        android:text="开始测试"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchButton"
+        android:layout_weight="1"
+        android:layout_alignTop="@+id/lableX"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="数据导出"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#f5f5f5"
+        android:textColor="#333"
+        android:id="@+id/button"
+        android:layout_below="@+id/valueY" />
+
+</RelativeLayout>
