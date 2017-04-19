@@ -21,8 +21,10 @@ import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
 public class FileStorage {
 
+    /**
+     * 文件对象
+     */
     private File file;
-
 
     public FileStorage(String filePath){
         Date d = new Date();
@@ -32,15 +34,25 @@ public class FileStorage {
 
     }
 
-    public File getAlbumStorageDir(String albumName) {
+
+    /**
+     * 获取文件夹，如果不存在就创建
+     * @param dirName 文件夹名称
+     * @return File file 文件夹File对象
+     */
+    private File getAlbumStorageDir(String dirName) {
         // Get the directory for the user's public pictures directory.
-        File file = new File(Environment.getExternalStorageDirectory(), albumName);
-        if (!file.mkdirs()) {
+        File file = new File(Environment.getExternalStorageDirectory(), dirName);
+        if (!file.exists()&&!file.mkdirs()) {
             Log.e(LOG_TAG, "Directory not created");
         }
         return file;
     }
 
+    /**
+     * 对文件添加数据
+     * @param  data 数据
+     */
     public void addData(List data){
         try{
             String string="";
@@ -57,10 +69,13 @@ public class FileStorage {
     }
 
     public List getData(){
-
         return new ArrayList();
     }
 
+    /**
+     * 获取文件对象
+     * @return file 文件对象
+     */
     public File getFile(){
         return file;
     }

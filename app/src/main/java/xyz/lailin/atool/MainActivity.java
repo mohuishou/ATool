@@ -1,6 +1,7 @@
 package xyz.lailin.atool;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,7 +9,10 @@ import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -23,6 +27,9 @@ import java.util.List;
 
 import xyz.lailin.atool.Storage.FileStorage;
 
+import static android.R.attr.max;
+import static android.R.attr.value;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView  textValY;
     private TextView  textValZ;
 
+    private RatingBar rate;
+
     private ChartView chart;
+    LineChart mLineChart;
 
     private List<String> accData=new ArrayList<String>();
 
@@ -45,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         textValY=(TextView)findViewById(R.id.valueY);
         textValZ=(TextView)findViewById(R.id.valueZ);
 
-        LineChart mLineChart=(LineChart)findViewById(R.id.chart);
+        mLineChart=(LineChart)findViewById(R.id.chart);
 
         chart=new ChartView(mLineChart);
 
@@ -72,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
                     }else {
                         toast("测试结束！");
                     }
-
-
                 }
                 switchButton.setChecked(isChecked);
             }
@@ -94,6 +102,17 @@ public class MainActivity extends AppCompatActivity {
         lineControl(switchX,0);
         lineControl(switchY,1);
         lineControl(switchZ,2);
+
+        //舒适度设置
+        rate=(RatingBar) findViewById(R.id.rate);
+
+    }
+
+    public void restart(View v){
+        accData=new ArrayList<>();
+        chart.reset();
+        chart=null;
+        chart=new ChartView(mLineChart);
     }
 
     private void lineControl(Switch mSwitch, final int id){
@@ -114,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
      * 加速度传感器的相关设置，以及监听
      */
     public class Acceleration {
+
+        /**
+         * 上一次的值
+         */
+        private float[] prevData=new float[3];
+
+        private float comfort=0.0f;
+
         /**
          * 传感器控制
          */
@@ -136,14 +163,23 @@ public class MainActivity extends AppCompatActivity {
             mSensor=mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         }
 
+        /**
+         * 注册加速度传感器
+         */
         void register(){
             mSensorManager.registerListener(mSensorEventListener, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
+        /**
+         * 取消注册加速度传感器
+         */
         void unRegister(){
             mSensorManager.unregisterListener(mSensorEventListener, mSensor);
         }
 
+        /**
+         * 加速度传感器监听方法
+         */
         private final SensorEventListener mSensorEventListener=new SensorEventListener() {
 
             @Override
@@ -152,6 +188,19 @@ public class MainActivity extends AppCompatActivity {
                     float x=event.values[0];
                     float y=event.values[1];
                     float z=event.values[2];
+
+                    if (prevData!=null){
+                        comfort=0f;
+                        for (int i = 0; i < 3; i++) {
+                            if(Math.abs(prevData[i]-event.values[i])>comfort){
+                                comfort=Math.abs(prevData[i]-event.values[i]);
+                            }
+                        }
+                        Log.i("test:",(-comfort+5f)+"");
+                        setComfortRate(rate);
+                    }
+
+                    System.arraycopy(event.values, 0, prevData, 0, 3);
 
 
                 /*显示左右、前后、垂直方向加速度*/
@@ -165,6 +214,9 @@ public class MainActivity extends AppCompatActivity {
                     chart.addData(y,1);
                     chart.addData(z,2);
 
+
+
+
                 }
             }
 
@@ -175,6 +227,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+
+        /**
+         * 获取当前的舒适状况
+         */
+        void  setComfortRate(RatingBar rate){
+            float r=0f;
+            if(-(comfort-5f)>0){
+                r=-comfort+5f;
+            }
+            rate.setRating(r);
+        }
+
+
 
     }
 }

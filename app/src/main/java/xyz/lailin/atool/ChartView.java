@@ -76,15 +76,15 @@ public class ChartView {
     /**
      * 初始化三条折线
      */
-    public void initLines(){
+    private void initLines(){
         //X方向
-        createNewLine("#607d8b");
+        createNewLine("#607d8b","X");
 
         //Y方向
-        createNewLine("#e91e63");
+        createNewLine("#e91e63","Y");
 
         //Z方向
-        createNewLine("#673ab7");
+        createNewLine("#673ab7","Z");
 
         LineData data = new LineData(dataSets);
 
@@ -100,10 +100,10 @@ public class ChartView {
      * 新建一条折线
      * @param lineColor 折线的背景颜色
      */
-    public void createNewLine(String lineColor){
+    public void createNewLine(String lineColor,String lineLabel){
         ArrayList<Entry> yValue = new ArrayList<>();
         yValue.add(new Entry(0,0));
-        final LineDataSet dataSet=new LineDataSet(yValue,"X");
+        final LineDataSet dataSet=new LineDataSet(yValue,lineLabel);
         dataSet.setColor(Color.parseColor(lineColor));
         dataSet.setLineWidth(2f);
         dataSets.add(dataSet);
@@ -148,5 +148,9 @@ public class ChartView {
 
     public ArrayList<ILineDataSet> getDataSets(){
         return dataSets;
+    }
+
+    public void reset(){
+        chart.removeAllViews();
     }
 }

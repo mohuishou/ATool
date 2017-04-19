@@ -106,7 +106,7 @@
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
+        android:id="@+id/rate"
         android:numStars="5"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:rating="5"
@@ -123,7 +123,7 @@
         android:textSize="14sp"
         android:textAlignment="center"
         android:id="@+id/textView"
-        android:layout_alignTop="@+id/ratingBar"
+        android:layout_alignTop="@+id/rate"
         android:layout_alignStart="@+id/lableX" />
 
     <Switch
@@ -134,24 +134,26 @@
         android:layout_alignTop="@+id/textView"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="重新开始"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#f5f5f5"
+        android:textColor="#333"
+        android:id="@+id/restart"
+        android:onClick="restart"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/valueY" />
+
     <Switch
         android:text="开始测试"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
         android:id="@+id/switchButton"
         android:layout_weight="1"
-        android:layout_alignTop="@+id/lableX"
+        android:layout_above="@+id/restart"
         android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="数据导出"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#f5f5f5"
-        android:textColor="#333"
-        android:id="@+id/button"
-        android:layout_below="@+id/valueY" />
 
 </RelativeLayout>
