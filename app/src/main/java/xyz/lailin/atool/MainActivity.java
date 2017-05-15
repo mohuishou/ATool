@@ -196,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
                                 comfort=Math.abs(prevData[i]-event.values[i]);
                             }
                         }
-                        Log.i("test:",(-comfort+5f)+"");
                         setComfortRate(rate);
                     }
 
